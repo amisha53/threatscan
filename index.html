@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThreatScan — Cybersecurity Threat Classifier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">Threat<span>Scan</span></a>
+  <div class="nav-r">
+    <a href="#scanner">Scanner</a>
+    <a href="#about">About</a>
+    <span class="live-badge">LIVE</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pre">CY 201 — Intro to Cybersecurity · SEMO 2024</div>
+  <h1>
+    <span class="t1">Classify threats.</span>
+    <span class="t2">Respond faster.</span>
+  </h1>
+  <p class="hero-desc">
+    Paste any <strong>suspicious email, URL, server log, or code snippet</strong> and get
+    an instant classification with severity rating, NIST CSF mapping, and remediation guidance.
+  </p>
+  <div class="hero-meta">
+    <div class="hmeta"><span class="hmeta-val">4</span><span class="hmeta-lbl">Input types</span></div>
+    <div class="hmeta"><span class="hmeta-val">NIST CSF</span><span class="hmeta-lbl">Framework</span></div>
+    <div class="hmeta"><span class="hmeta-val">&lt;3s</span><span class="hmeta-lbl">Avg response</span></div>
+    <div class="hmeta"><span class="hmeta-val">5</span><span class="hmeta-lbl">Severity levels</span></div>
+  </div>
+</section>
+
+<!-- NIST STRIP -->
+<div class="nist-strip">
+  <span class="nist-label">NIST CSF Coverage</span>
+  <div class="nist-tags">
+    <span class="ntag ntag-id">ID.RA — Risk Assessment</span>
+    <span class="ntag ntag-pr">PR.AT — Awareness</span>
+    <span class="ntag ntag-de">DE.AE — Anomalies &amp; Events</span>
+    <span class="ntag ntag-de">DE.CM — Monitoring</span>
+    <span class="ntag ntag-rs">RS.AN — Analysis</span>
+    <span class="ntag ntag-rs">RS.MI — Mitigation</span>
+  </div>
+</div>
+
+<!-- SCANNER -->
+<section class="scanner" id="scanner">
+  <div class="tab-row">
+    <button class="tab on" onclick="setTab('email', this)">Email</button>
+    <button class="tab" onclick="setTab('url', this)">URL</button>
+    <button class="tab" onclick="setTab('log', this)">Log Entry</button>
+    <button class="tab" onclick="setTab('code', this)">Code</button>
+  </div>
+
+  <div class="split">
+    <!-- Input pane -->
+    <div class="pane">
+      <div class="pane-lbl">// paste content to analyze</div>
+      <textarea id="inputBox" placeholder="Paste content here..."></textarea>
+      <div class="ex-row" id="exRow"></div>
+      <button class="scan-btn" id="scanBtn" onclick="runScan()">[ Analyze Threat ]</button>
+    </div>
+
+    <!-- Output pane -->
+    <div class="pane">
+      <div class="pane-lbl">// analysis output</div>
+
+      <div class="idle-box" id="idleBox">
+        <div class="idle-icon">🛡</div>
+        <div class="idle-t">awaiting input...</div>
+      </div>
+
+      <div class="spin-box" id="spinBox">
+        <div class="spinner"></div>
+        <div class="spin-t">scanning...</div>
+      </div>
+
+      <div class="res-box" id="resBox"></div>
+    </div>
+  </div>
+
+  <!-- Session stats -->
+  <div class="stats">
+    <div class="sbox"><div class="sval c" id="cntScans">0</div><div class="slbl">Scans run</div></div>
+    <div class="sbox"><div class="sval"   id="cntThreats">0</div><div class="slbl">Threats found</div></div>
+    <div class="sbox"><div class="sval"   id="cntSafe">0</div><div class="slbl">Safe inputs</div></div>
+    <div class="sbox"><div class="sval c">v2.1</div><div class="slbl">Engine ver.</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div>
+      <div class="about-pre">// about this project</div>
+      <h2>Built for real threat detection scenarios</h2>
+      <p>
+        Developed for CY 201 — Intro to Cybersecurity. Applies intelligent classification
+        to identify phishing, injection attacks, port scans, and vulnerable code — the same
+        threat categories I analyzed manually in Wireshark and Snort IDS labs throughout the semester.
+      </p>
+    </div>
+    <div class="about-details">
+      <div class="detail-row">
+        <div class="dr-icon">📧</div>
+        <div>
+          <div class="dr-title">Phishing Detection</div>
+          <div class="dr-desc">Identifies spoofed senders, urgency language, suspicious links, and social engineering patterns.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="dr-icon">🔗</div>
+        <div>
+          <div class="dr-title">Malicious URL Analysis</div>
+          <div class="dr-desc">Flags typosquatting, suspicious TLDs, encoded payloads, and redirect chains.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="dr-icon">📋</div>
+        <div>
+          <div class="dr-title">Log Anomaly Detection</div>
+          <div class="dr-desc">Detects brute force patterns, port scan signatures, and unauthorized access attempts.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="dr-icon">💻</div>
+        <div>
+          <div class="dr-title">Vulnerable Code Review</div>
+          <div class="dr-desc">Spots buffer overflows, SQL injection vectors, and unsafe C library calls (gets, strcpy) — covered in CS 380.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>ThreatScan · Tarunima Amisha · SEMO CS 2026</p>
+  <p><a href="https://github.com/amisha53">github.com/amisha53</a></p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
